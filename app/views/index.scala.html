@@ -1,0 +1,38 @@
+@(customers: List[Customer], customerForm: Form[Customer])
+
+@import helper._
+
+
+@main("Customer list") {
+
+    <h1>@customers.size() customer(s)</h1>
+
+    <ul>
+        @for(customer <- customers) {
+        <li>
+            @customer.id @customer.name   @customer.email @customer.sex
+
+            @form(routes.Application.deleteCustomer(customer.id)) {
+                    <input type="submit" value="Delete">
+            }
+        </li>
+        }
+    </ul>
+
+
+
+    <h2>Add a new Customer</h2>
+
+    @form(routes.Application.newCustomer()) {
+        @inputText(customerForm("id"))
+        @inputText(customerForm("name"))
+        @inputText(customerForm("email"))
+        @inputText(customerForm("sex"))
+
+        <input type="submit" value="Create">
+
+    }
+
+
+
+}
